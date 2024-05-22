@@ -6,13 +6,17 @@ import CartScreen from '../screens/CartScreen';
 import Home from '../icons/Home';
 import {colors} from '../constants/Colors';
 import Basket from '../icons/Basket';
+import DetailProductScreen from '../screens/DetailProductScreen';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigator = () => {
+  const {cartItems}=useSelector(state=>state.cart)
+///console.log('Sepet',cartItems)
   return (
     <Tab.Navigator
-      initialRouteName="MainStackNavigator"
+    
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarIcon: ({focused}) => {
@@ -32,7 +36,9 @@ const BottomNavigator = () => {
           }
           return tabIcon;
         },
+        tabBarBadge: route.name == 'Cart' ? cartItems.length : null,
       })}>
+      {/* <Tab.Screen name="Detail" component={DetailProductScreen} /> */}
       <Tab.Screen name="Home" component={MainStackNavigator} />
       <Tab.Screen name="Cart" component={CartScreen} />
     </Tab.Navigator>

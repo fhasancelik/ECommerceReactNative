@@ -1,18 +1,17 @@
-import {Image, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {colors} from '../constants/Colors';
 import {fontSizes, fontWeights} from '../constants/Fonts';
 import CustomButton from './CustomButton';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/slice/cartSlice';
 
-const ProductCard = () => {
-  const {title, price, image} = {
-    id: 1,
-    title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-    price: 109.95,
-    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-  };
+const ProductCard = ({onPress,productInfo}) => {
+  const {title, price, image} = productInfo;
+const dispatch=useDispatch()
+
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity onPress={onPress} style={styles.card}>
       <Image
         source={{
           uri: image,
@@ -23,7 +22,10 @@ const ProductCard = () => {
         <Text style={styles.price}>{price}₺</Text>
         <Text>{title}</Text>
       </View>
-      <CustomButton onPress={()=>console.log("basıldı")} buttonTitle='Sepete Ekle' />
+      <CustomButton
+        onPress={() => dispatch(addToCart(productInfo))}
+        buttonTitle="Sepete Ekle"
+      />
     </TouchableOpacity>
   );
 };
@@ -34,9 +36,9 @@ const styles = StyleSheet.create({
   card: {
     width: 150,
     gap: 15,
-    borderWidth:1/5,
-    padding:10
-
+    borderWidth: 1 / 5,
+    padding: 10,
+    margin: 15,
   },
   info: {
     gap: 15,

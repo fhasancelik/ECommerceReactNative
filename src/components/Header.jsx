@@ -7,10 +7,16 @@ import {useNavigation} from '@react-navigation/native';
 import {fontSizes, fontWeights} from '../constants/Fonts';
 
 const Header = ({title, onBack}) => {
+console.log('Header Render Edildi')
   const navigation = useNavigation();
+  //&& varsa 
+  //? ise
+  //: değilse
+  //== eşitse (tipi önemli değil)
+  //=== eşitse (tip kontrolüde yapılır)
   return (
     <View style={styles.headerContainer}>
-      {onBack && (
+      {onBack===true && (
         <Back
           style={{
             padding: 20,
